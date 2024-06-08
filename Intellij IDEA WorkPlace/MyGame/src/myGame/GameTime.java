@@ -16,6 +16,7 @@ public class GameTime {
             JPanelFunction.jPanelFunction.repaint();
             TimeInteger = GameUtil.GameTime / 1000;
         }
+        if(TimeInteger == 999) GameEndJudgment.isOverTime();
     });
 
     static void TimeStart(){

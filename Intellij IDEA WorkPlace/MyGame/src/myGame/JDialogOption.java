@@ -71,7 +71,7 @@ public class JDialogOption extends JDialog {
         AboutUs.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String url = "https://github.com/abyssGavin/Code_Learning";
+                String url = "https://github.com/abyssGavin";
 
                 try {
                     // 检查Desktop是否支持打开URI
@@ -117,8 +117,8 @@ public class JDialogOption extends JDialog {
         // 使用SwingUtilities.invokeLater来确保滚动条位置的调整在组件显示后执行
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                scrollPane.getViewport().setViewPosition(new Point(0, 0));// 将滚动条位置设置到顶部
-            }
+                scrollPane.getViewport().setViewPosition(new Point(0, 0));
+            }// 将滚动条位置设置到顶部
         });
         descriptionDialog.setVisible(true);
     }

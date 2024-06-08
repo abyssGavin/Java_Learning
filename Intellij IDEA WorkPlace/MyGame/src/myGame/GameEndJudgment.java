@@ -33,9 +33,9 @@ public class GameEndJudgment {
         if (GameUtil.DataBottom[y][x] == -1) {
             GameTime.TimeStop();
             GameUtil.DataWrong[y][x] = true;
-            for(int i = 1; i <= GameUtil.SquareHeightNum; i++) {
-                for(int j = 1; j <= GameUtil.SquareWidthNum; j++) {
-                    if(GameUtil.DataTop[i + 1][j + 1] == 2 && GameUtil.DataBottom[i + 1][j + 1] != -1){
+            for (int i = 1; i <= GameUtil.SquareHeightNum; i++) {
+                for (int j = 1; j <= GameUtil.SquareWidthNum; j++) {
+                    if (GameUtil.DataTop[i + 1][j + 1] == 2 && GameUtil.DataBottom[i + 1][j + 1] != -1) {
                         GameUtil.DataWrong[i][j] = true;
                         GameUtil.overCommand = true;
 
@@ -45,9 +45,21 @@ public class GameEndJudgment {
             }
             TopMap.topMap.setSquarePanelsOpaque(false);
             int response = JOptionPane.showConfirmDialog(WinFailureJOptionPane, "你输了！！！是否再来一局", "不要给阿哈看扁了", JOptionPane.YES_NO_OPTION);
-            if(response == JOptionPane.YES_OPTION) GameFrame.Game.launch();
+            if (response == JOptionPane.YES_OPTION) GameFrame.Game.launch();
             return true;
         }
         return false;
     }
+    static boolean isOverTime() {
+
+        GameTime.TimeStop();
+
+        GameUtil.overCommand = true;
+//        TopMap.topMap.setSquarePanelsOpaque(false);
+        int response = JOptionPane.showConfirmDialog(WinFailureJOptionPane, "你超时了", "时间就是金钱", JOptionPane.YES_NO_OPTION);
+        if (response == JOptionPane.YES_OPTION) GameFrame.Game.launch();
+
+        return false;
+    }
+
 }
