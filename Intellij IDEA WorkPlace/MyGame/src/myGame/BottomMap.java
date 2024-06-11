@@ -2,6 +2,8 @@ package myGame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class BottomMap extends JPanel {
 
@@ -9,6 +11,66 @@ public class BottomMap extends JPanel {
 
     private BottomMap(){
         this.setLayout(new LayoutBottomMap());
+
+        setFocusable(true);  // 确保JPanel可以接收到键盘事件
+
+        this.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_T && !GameUtil.overCommand && GameFrame.firstClick) {
+                    boolean nonRealization = true;
+                    System.out.println(("WA!"));
+                    int count = 0;
+                    for(int i = 0; i < GameUtil.SquareHeightNum; i++) {
+                        for(int j = 0; j < GameUtil.SquareWidthNum; j++){
+                            if(GameUtil.DataTop[i + 1][j + 1] == 0 && GameUtil.DataBottom[i + 1][j + 1] == 0) {
+                                count++;
+                            }
+                        }
+                    }
+                    if(count != 0) {
+                        count = (int) (Math.random() * count) + 1;
+                        for(int i = 0; i < GameUtil.SquareHeightNum; i++) {
+                            for(int j = 0; j < GameUtil.SquareWidthNum; j++){
+                                if(GameUtil.DataTop[i + 1][j + 1] == 0 && GameUtil.DataBottom[i + 1][j + 1] == 0) {
+                                    count--;
+                                }
+                                if(count == 0) {
+                                    TopMap.topMap.squarePanels[i][j].SpaceOpen();
+                                    return;
+                                }
+                            }
+
+                        }
+                    }else {
+                        for(int i = 0; i < GameUtil.SquareHeightNum; i++) {
+                            for(int j = 0; j < GameUtil.SquareWidthNum; j++){
+                                if(GameUtil.DataTop[i + 1][j + 1] == 0 && GameUtil.DataBottom[i + 1][j + 1] >= 0) {
+                                    count++;
+                                }
+                            }
+                        }
+                        if(count == 0) return;
+                        else{
+                            count = (int) (Math.random() * count) + 1;
+                            for(int i = 0; i < GameUtil.SquareHeightNum; i++) {
+                                for(int j = 0; j < GameUtil.SquareWidthNum; j++){
+                                    if(GameUtil.DataTop[i + 1][j + 1] == 0 && GameUtil.DataBottom[i + 1][j + 1] >=0) {
+                                        count--;
+                                    }
+                                    if(count == 0) {
+                                        TopMap.topMap.squarePanels[i][j].SpaceOpen();
+                                        return;
+                                    }
+                                }
+
+                            }
+                        }
+
+                    }
+                }
+            }
+        });
     }
 
 

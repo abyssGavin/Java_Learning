@@ -43,26 +43,6 @@ public class LayoutBottomMap extends LayoutAdapter {
 
 
 
-//        int i = 0;
-//        int j = 0;
-//        boolean con = true;
-//        for(Component comp : parent.getComponents()){
-//            if(con) comp.setBounds(GameUtil.SQUARE_LENGTH * (j) + GameUtil.OFFSET_LEFT,
-//                    GameUtil.SQUARE_LENGTH * (i) + GameUtil.OFFSET_TOP, GameUtil.SQUARE_LENGTH, GameUtil.SQUARE_LENGTH);
-//            if(j < GameUtil.SquareWidthNum - 1) j++;
-//            else{
-//                i++;
-//                j = 0;
-//                if(i == GameUtil.SquareHeightNum) con = false;
-//            }
-
-
-
-
-
-
-//            comp.setBounds(GameUtil.OFFSET_LEFT, GameUtil.OFFSET_TOP / 3, GameUtil.OFFSET_LEFT * 4,  GameUtil.OFFSET_TOP );
-
     }
 
 

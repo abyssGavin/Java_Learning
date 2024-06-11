@@ -53,6 +53,9 @@ public class LayoutGameDegree extends LayoutAdapter{
                 case 11:
                     comp.setBounds(parent.getWidth() / 2 + 50, 50 * 7 + 15, compSize.width - 30, compSize.height - 30);
                     break;
+                case 12:
+                    comp.setBounds(parent.getWidth() / 2  - 70, 50 * 9 + 15, compSize.width - 30, compSize.height - 30);
+                    break;
             }
         }
     }

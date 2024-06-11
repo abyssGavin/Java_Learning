@@ -2,8 +2,11 @@ package myGame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class JPanelSquare extends JPanel {
 
@@ -17,6 +20,7 @@ public class JPanelSquare extends JPanel {
         this.x = x;
         this.y = y;
 
+
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -28,7 +32,7 @@ public class JPanelSquare extends JPanel {
                         e.getY() <GameUtil.SQUARE_LENGTH &&
                         GameUtil.DataTop[y][x] == 0) {
                     if(!GameFrame.firstClick){
-                        MineCreate.Create(x, y);
+                        MineCreate.createMines(x, y);
                         BottomNum.Crate();
                         GameFrame.firstClick = true;
                         GameTime.TimeStart();

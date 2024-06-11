@@ -22,7 +22,7 @@ public class JDialogGameDegree extends JDialog {
     JLabel LabelWide;
     JLabel LabelHeight;
     JLabel LabelMineNum;
-
+    JCheckBox MineOptimization;
 
     static void setGameDegree(Component parent){
         gameDegree = new JDialogGameDegree(parent);
@@ -61,95 +61,91 @@ public class JDialogGameDegree extends JDialog {
         DegreeCustom = setDegree("自定义");
         DegreeCustom.setEnabled(false);
 
-        DegreeBeginner.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        MineOptimization = new JCheckBox("雷区布局优化");
+        MineOptimization.setPreferredSize(new Dimension(300, 100));
+        root.add(MineOptimization);
+        MineOptimization.setFont(GameUtil.font);
+
+        DegreeBeginner.addActionListener(e -> {
+            GameFrame.Game.dispose();
+            GameFrame.Game.initializeGame();
+            GameFrame.widthSquareNum = 9;
+            GameFrame.heightSquareNum = 9;
+            GameFrame.mineNum = 10;
+            GameFrame.Game.launch();
+        });
+
+        DegreeIntermediate.addActionListener(e -> {
+            GameFrame.Game.dispose();
+            GameFrame.Game.initializeGame();
+            GameFrame.widthSquareNum = 16;
+            GameFrame.heightSquareNum = 16;
+            GameFrame.mineNum = 40;
+            GameFrame.Game.launch();
+
+        });
+
+        DegreeExpert.addActionListener(e -> {
+            GameFrame.Game.dispose();
+            GameFrame.Game.initializeGame();
+            GameFrame.widthSquareNum = 30;
+            GameFrame.heightSquareNum = 16;
+            GameFrame.mineNum = 99;
+            GameFrame.Game.launch();
+
+        });
+
+
+        CustomChoose.addItemListener(e -> {
+            if(e.getStateChange() == ItemEvent.SELECTED) {
+                DegreeBeginner.setEnabled(false);
+                DegreeIntermediate.setEnabled(false);
+                DegreeExpert.setEnabled(false);
+                TextWide.setEditable(true);
+                TextHeight.setEditable(true);
+                TextMineNum.setEditable(true);
+                DegreeCustom.setEnabled(true);
+            }
+            else{
+                DegreeBeginner.setEnabled(true);
+                DegreeIntermediate.setEnabled(true);
+                DegreeExpert.setEnabled(true);
+                TextWide.setEditable(false);
+                TextHeight.setEditable(false);
+                TextMineNum.setEditable(false);
+                DegreeCustom.setEnabled(false);
+
+            }
+        });
+
+
+
+
+        DegreeCustom.addActionListener(e -> {
+            if(validateInputs()) {
+                int width = Integer.parseInt(TextWide.getText());
+                int height = Integer.parseInt(TextHeight.getText());
+                int mineNum = Integer.parseInt(TextMineNum.getText());
+
                 GameFrame.Game.dispose();
+
+
                 GameFrame.Game.initializeGame();
-                GameFrame.widthSquareNum = 9;
-                GameFrame.heightSquareNum = 9;
-                GameFrame.mineNum = 10;
+                GameFrame.widthSquareNum = width;
+                GameFrame.heightSquareNum = height;
+                GameFrame.mineNum = mineNum;
+
                 GameFrame.Game.launch();
             }
         });
 
-        DegreeIntermediate.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                GameFrame.Game.dispose();
-                GameFrame.Game.initializeGame();
-                GameFrame.widthSquareNum = 16;
-                GameFrame.heightSquareNum = 16;
-                GameFrame.mineNum = 40;
-                GameFrame.Game.launch();
-
+        MineOptimization.addItemListener(e -> {
+            if(e.getStateChange() == ItemEvent.SELECTED) {
+                GameUtil.MineOptimization = true;
+            } else {
+                GameUtil.MineOptimization = false;
             }
         });
-
-        DegreeExpert.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                GameFrame.Game.dispose();
-                GameFrame.Game.initializeGame();
-                GameFrame.widthSquareNum = 30;
-                GameFrame.heightSquareNum = 16;
-                GameFrame.mineNum = 99;
-                GameFrame.Game.launch();
-
-            }
-        });
-
-
-        CustomChoose.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if(e.getStateChange() == ItemEvent.SELECTED) {
-                    DegreeBeginner.setEnabled(false);
-                    DegreeIntermediate.setEnabled(false);
-                    DegreeExpert.setEnabled(false);
-                    TextWide.setEditable(true);
-                    TextHeight.setEditable(true);
-                    TextMineNum.setEditable(true);
-                    DegreeCustom.setEnabled(true);
-                }
-                else{
-                    DegreeBeginner.setEnabled(true);
-                    DegreeIntermediate.setEnabled(true);
-                    DegreeExpert.setEnabled(true);
-                    TextWide.setEditable(false);
-                    TextHeight.setEditable(false);
-                    TextMineNum.setEditable(false);
-                    DegreeCustom.setEnabled(false);
-
-                }
-            }
-        });
-
-
-
-
-        DegreeCustom.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(validateInputs()) {
-                    int width = Integer.parseInt(TextWide.getText());
-                    int height = Integer.parseInt(TextHeight.getText());
-                    int mineNum = Integer.parseInt(TextMineNum.getText());
-
-                    GameFrame.Game.dispose();
-
-
-                    GameFrame.Game.initializeGame();
-                    GameFrame.widthSquareNum = width;
-                    GameFrame.heightSquareNum = height;
-                    GameFrame.mineNum = mineNum;
-
-                    GameFrame.Game.launch();
-                }
-            }
-        });
-
-
 
 
 
@@ -198,15 +194,15 @@ public class JDialogGameDegree extends JDialog {
             int height = Integer.parseInt(TextHeight.getText());
             int mineNum = Integer.parseInt(TextMineNum.getText());
 
-            if (width >= 9 && width <= 45 && height >= 9 && height <= 20 && mineNum >= 1 && mineNum <= 255) {
+            if (width <= 45 && height >= 9 && height <= 20 && mineNum >= 1 && mineNum <= 255 && width >= height && width * 4 <= height * 9 && mineNum <= width * height * 7 / 10) {
                 return true;
             } else {
                 Toolkit.getDefaultToolkit().beep(); // 发出提示音
-                JOptionPane.showMessageDialog(this, "输入有误，请输入有效的数值。", "输入错误", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "输入有误，请输入合适的数值。", "输入错误", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
         } catch (NumberFormatException e) {
-            Toolkit.getDefaultToolkit().beep(); // 发出提示音
+            Toolkit.getDefaultToolkit().beep();
             JOptionPane.showMessageDialog(this, "请输入数字。", "输入错误", JOptionPane.ERROR_MESSAGE);
             return false;
         }

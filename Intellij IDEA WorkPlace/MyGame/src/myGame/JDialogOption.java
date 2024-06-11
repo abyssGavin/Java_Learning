@@ -45,46 +45,26 @@ public class JDialogOption extends JDialog {
 
 
 
-        jButtonNewGame.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        jButtonNewGame.addActionListener(e -> JDialogGameDegree.setGameDegree(JDialogOption.this));
 
-                JDialogGameDegree.setGameDegree(JDialogOption.this);
+        Exit.addActionListener(e -> ((Window) parent).dispose());
 
-            }
-        });
+        GameDescription.addActionListener(e -> showGameDescription());
 
-        Exit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ((Window) parent).dispose();
-            }
-        });
+        AboutUs.addActionListener(e -> {
+            String url = "https://github.com/abyssGavin";
 
-        GameDescription.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showGameDescription();
-            }
-        });
-
-        AboutUs.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String url = "https://github.com/abyssGavin";
-
-                try {
-                    // 检查Desktop是否支持打开URI
-                    if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-                        // 打开URL
-                        Desktop.getDesktop().browse(new URI(url));
-                    } else {
-                        System.out.println("无法打开浏览器。");
-                    }
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                    System.out.println("发生错误: " + e1.getMessage());
+            try {
+                // 检查Desktop是否支持打开URI
+                if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                    // 打开URL
+                    Desktop.getDesktop().browse(new URI(url));
+                } else {
+                    System.out.println("无法打开浏览器。");
                 }
+            } catch (Exception e1) {
+                e1.printStackTrace();
+                System.out.println("发生错误: " + e1.getMessage());
             }
         });
 
@@ -132,7 +112,8 @@ public class JDialogOption extends JDialog {
     }
 
     private class Text{
-        static String text = "扫雷游戏指引\n" +
+        static String text = "                                   扫雷游戏指引\n" +
+                "                                   按\"T\"键提示\n" +
                 "欢迎游戏者！本指引旨在帮助您了解经典游戏扫雷的基本规则和一些实用策略，让您能够快速上手并享受这个富有策略和运气结合的游戏。\n" +
                 "\n" +
                 "游戏目标\n" +

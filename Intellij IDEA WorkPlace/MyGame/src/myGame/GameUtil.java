@@ -34,6 +34,8 @@ public class GameUtil {
     static int NumberOfGames = 0;
     static Font font = new Font("楷体", Font.BOLD, 24);
     static Font fontButton = new Font("楷体", Font.BOLD, 40);
+    static boolean MineOptimization; //布局优化
+    static int[][] MineWeight; //雷数权重
 
 
 
@@ -147,6 +149,8 @@ public class GameUtil {
         GameTime = 0;
         myGame.GameTime.TimeInteger = 0;
         NumberOfGames++;
+        MineWeight = new int[SquareHeightNum + 2][SquareWidthNum + 2];
+
 
     }
 

@@ -11,17 +11,6 @@ public class GameEndJudgment {
     }
 
     static boolean isWin(){
-
-
-//        for(int i = 1; i < GameUtil.SquareWidthNum; i++) {
-//            for(int j = 1; j < GameUtil.SquareHeightNum; j++){
-//                if(GameUtil.DataBottom[i][j] != -1){
-//                    TopMap.topMap.squarePanels[i - 1][j - 1].setOpaque(false);
-//                    TopMap.topMap.squarePanels[i - 1][j - 1].revalidate();
-//                    TopMap.topMap.squarePanels[i - 1][j - 1].repaint();
-//                }
-//            }
-//        }
         GameTime.TimeStop();
         GameUtil.overCommand = true;
         int response = JOptionPane.showConfirmDialog(WinFailureJOptionPane, "你赢了！！！是否再来一局", "包赢的", JOptionPane.YES_NO_OPTION);
