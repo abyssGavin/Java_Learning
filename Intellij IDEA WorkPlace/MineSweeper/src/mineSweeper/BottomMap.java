@@ -1,4 +1,4 @@
-package myGame;
+package mineSweeper;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,8 +18,6 @@ public class BottomMap extends JPanel {
             @Override
             public void keyReleased(KeyEvent e) {
                 if(e.getKeyCode() == KeyEvent.VK_T && !GameUtil.overCommand && GameFrame.firstClick) {
-                    boolean nonRealization = true;
-                    System.out.println(("WA!"));
                     int count = 0;
                     for(int i = 0; i < GameUtil.SquareHeightNum; i++) {
                         for(int j = 0; j < GameUtil.SquareWidthNum; j++){
@@ -50,8 +48,7 @@ public class BottomMap extends JPanel {
                                 }
                             }
                         }
-                        if(count == 0) return;
-                        else{
+                        if(count != 0) {
                             count = (int) (Math.random() * count) + 1;
                             for(int i = 0; i < GameUtil.SquareHeightNum; i++) {
                                 for(int j = 0; j < GameUtil.SquareWidthNum; j++){

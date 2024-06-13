@@ -1,4 +1,4 @@
-package myGame;
+package mineSweeper;
 
 public class BottomNum {
 

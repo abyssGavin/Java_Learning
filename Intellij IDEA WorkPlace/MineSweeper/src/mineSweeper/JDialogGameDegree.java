@@ -1,11 +1,8 @@
-package myGame;
+package mineSweeper;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 public class JDialogGameDegree extends JDialog {
 
@@ -65,8 +62,10 @@ public class JDialogGameDegree extends JDialog {
         MineOptimization.setPreferredSize(new Dimension(300, 100));
         root.add(MineOptimization);
         MineOptimization.setFont(GameUtil.font);
+        MineOptimization.setSelected(true);
 
         DegreeBeginner.addActionListener(e -> {
+            GameUtil.MineOptimization = this.MineOptimization.isSelected();
             GameFrame.Game.dispose();
             GameFrame.Game.initializeGame();
             GameFrame.widthSquareNum = 9;
@@ -76,6 +75,7 @@ public class JDialogGameDegree extends JDialog {
         });
 
         DegreeIntermediate.addActionListener(e -> {
+            GameUtil.MineOptimization = this.MineOptimization.isSelected();
             GameFrame.Game.dispose();
             GameFrame.Game.initializeGame();
             GameFrame.widthSquareNum = 16;
@@ -86,6 +86,7 @@ public class JDialogGameDegree extends JDialog {
         });
 
         DegreeExpert.addActionListener(e -> {
+            GameUtil.MineOptimization = this.MineOptimization.isSelected();
             GameFrame.Game.dispose();
             GameFrame.Game.initializeGame();
             GameFrame.widthSquareNum = 30;
@@ -123,6 +124,7 @@ public class JDialogGameDegree extends JDialog {
 
         DegreeCustom.addActionListener(e -> {
             if(validateInputs()) {
+                GameUtil.MineOptimization = this.MineOptimization.isSelected();
                 int width = Integer.parseInt(TextWide.getText());
                 int height = Integer.parseInt(TextHeight.getText());
                 int mineNum = Integer.parseInt(TextMineNum.getText());
@@ -136,14 +138,6 @@ public class JDialogGameDegree extends JDialog {
                 GameFrame.mineNum = mineNum;
 
                 GameFrame.Game.launch();
-            }
-        });
-
-        MineOptimization.addItemListener(e -> {
-            if(e.getStateChange() == ItemEvent.SELECTED) {
-                GameUtil.MineOptimization = true;
-            } else {
-                GameUtil.MineOptimization = false;
             }
         });
 

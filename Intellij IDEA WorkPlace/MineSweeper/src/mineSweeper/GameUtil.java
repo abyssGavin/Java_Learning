@@ -1,13 +1,11 @@
-package myGame;
+package mineSweeper;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
-
+import java.io.InputStream;
 
 public class GameUtil {
-
 
     static final int SQUARE_LENGTH = 40;
     static final int OFFSET_TOP = 160;
@@ -37,93 +35,46 @@ public class GameUtil {
     static boolean MineOptimization; //布局优化
     static int[][] MineWeight; //雷数权重
 
-
-
-
-    //雷
-    static File fileMine = new File("src/images/Mine.png");
+    // 图片资源
     static Image MineImage;
-    //旗帜
-    static File fileFlag = new File("src/images/flag.jpg");
     static Image FlagImage;
-    //空白
-    static File fileNoFlag = new File("src/images/noFlag.jpg");
     static Image NoFlagImage;
-    //错误
-    static File fileWrong = new File("src/images/wrong.png");
     static Image WrongImage;
-    //笑脸给多了
-    static File fileFace = new File("src/images/Face.png");
     static Image FaceImage;
-    //数字
     static Image[] NumColorfulImage = new Image[10];
     static Image[] NumRedImage = new Image[10];
 
-
     static {
         try {
-            MineImage = ImageIO.read(fileMine);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+            MineImage = loadImage("images/Mine.png");
+            FlagImage = loadImage("images/flag.jpg");
+            NoFlagImage = loadImage("images/noFlag.jpg");
+            WrongImage = loadImage("images/wrong.png");
+            FaceImage = loadImage("images/Face.png");
 
-    static {
-        try {
-            FlagImage = ImageIO.read(fileFlag);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    static {
-        try {
-            NoFlagImage = ImageIO.read(fileNoFlag);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    static {
-        try {
-            WrongImage = ImageIO.read(fileWrong);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    static {
-            try {
-                FaceImage = ImageIO.read(fileFace);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            for (int i = 1; i <= 8; i++) {
+                NumColorfulImage[i] = loadImage("images/NumColorful/" + i + ".png");
             }
-        }
 
-    static {
-        for (int i = 1; i <= 8; i++) {
-            File fileNum = new File("src/images/NumColorful/" + i + ".png");
-            try {
-                NumColorfulImage[i] = ImageIO.read(fileNum);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            for (int i = 0; i <= 9; i++) {
+                NumRedImage[i] = loadImage("images/NumRed/数字" + i + ".png");
             }
+            System.out.println("Images loaded successfully.");
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
-
-    static {
-        for (int i = 0; i <= 9; i++) {
-            File fileNum = new File("src/images/NumRed/数字" + i + ".png");
-            try {
-                NumRedImage[i] = ImageIO.read(fileNum);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
 
     private GameUtil() {
+    }
+
+    private static Image loadImage(String path) throws IOException {
+        InputStream inputStream = GameUtil.class.getClassLoader().getResourceAsStream(path);
+        if (inputStream == null) {
+            throw new IOException("Resource not found: " + path);
+        }
+        return ImageIO.read(inputStream);
     }
 
     public static void SetUtil(int widthSquareNum, int heightSquareNum, int mineNum) {
@@ -139,20 +90,17 @@ public class GameUtil {
         DataBottom = new int[SquareHeightNum + 2][SquareWidthNum + 2];
         DataTop = new int[SquareHeightNum + 2][SquareWidthNum + 2];
         DataWrong = new boolean[SquareHeightNum + 2][SquareWidthNum + 2];
-        for(int i = 0; i < SquareHeightNum + 2; i++)
-            for(int j = 0; j < SquareWidthNum + 2; j++) {
+        for (int i = 0; i < SquareHeightNum + 2; i++)
+            for (int j = 0; j < SquareWidthNum + 2; j++) {
                 DataBottom[i][j] = 0;
                 DataTop[i][j] = 0;
                 DataWrong[i][j] = false;
             }
         overCommand = false;
         GameTime = 0;
-        myGame.GameTime.TimeInteger = 0;
+        mineSweeper.GameTime.TimeInteger = 0;
         NumberOfGames++;
         MineWeight = new int[SquareHeightNum + 2][SquareWidthNum + 2];
-
-
     }
-
 
 }

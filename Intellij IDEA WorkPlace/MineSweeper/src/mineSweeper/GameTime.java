@@ -1,13 +1,13 @@
-package myGame;
+package mineSweeper;
 
 import javax.swing.Timer;
 
 
 public class GameTime {
 
-    static int TimeInteger;
+    public static int TimeInteger;
 
-    static Timer timer = new Timer(100, e -> {
+    public static Timer timer = new Timer(100, e -> {
         GameUtil.TimeNow = System.currentTimeMillis();
         GameUtil.GameTime += (int)(GameUtil.TimeNow - GameUtil.TimeBegin);
         GameUtil.TimeBegin = GameUtil.TimeNow;
